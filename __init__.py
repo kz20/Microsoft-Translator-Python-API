@@ -130,6 +130,8 @@ class Translator(object):
             params=params,
             headers={'Authorization': 'Bearer %s' % self.access_token}
         )
+        if resp.headers['content-type'].startswith('audio'):
+            return resp.iter_content
         resp.encoding = 'UTF-8-sig'
         rv = resp.json()
 
@@ -261,3 +263,33 @@ class Translator(object):
             'text': text.encode('utf8')
         }
         return self.call('Detect', params)
+
+    def speak(self, text, lang, format="audio/wav", options="MinSize"):
+        """Returns a string which is a URL to a wave or mp3 stream of the
+            passed-in text being spoken in the desired language..
+
+            text: A string containing a sentence or sentences of the specified
+                language to be spoken for the wave stream. The size of the text
+                to speak must not exceed 2000 characters.
+            lang: A string representing the supported language code to speak
+                the text in. The code must be present in the list of codes
+                returned from the method GetLanguagesForSpeak.
+            format: A string specifying the content-type ID. Currently,
+                “audio/wav” and “audio/mp3” are available. The default value is
+                "audio/wav".
+            options: A string specifying the quality of the audio signals.
+            Currently, “MaxQuality” and “MinSize” are available. With
+                “MaxQuality”, you can get the voice(s) with the highest
+                quality, and with “MinSize”, you can get the voices with the
+                smallest size. If no value is provided, we default to “MinSize”
+                (Default:"MinSize")
+
+        """
+
+        params = {
+            'text': text,
+            'language': lang,
+            'format': format,
+            'options': options,
+        }
+        return self.call('Speak', params)
