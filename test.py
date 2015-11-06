@@ -25,6 +25,23 @@ class TestTranslator(unittest.TestCase):
             client.translate("hello", "pt"), u'Ol\xe1'
         )
 
+    def test_get_traslations(self):
+        client = Translator(client_id, client_secret, debug=True)
+        self.assertEqual(
+            client.get_translations("sun", "ru"),
+            {'From': 'en', 'Translations': [
+                {'Rating': 5, 'TranslatedText': u'Солнце', 'Count': 0, 'MatchDegree': 100, 'MatchedOriginalText': ''},
+                {'Rating': 1, 'TranslatedText': u'Солнце', 'Count': 1, 'MatchDegree': 100, 'MatchedOriginalText': 'sun'},
+                {'Rating': 1, 'TranslatedText': u'солнце', 'Count': 1, 'MatchDegree': 100, 'MatchedOriginalText': 'sun'},
+                {'Rating': 1, 'TranslatedText': u'ВС', 'Count': 1, 'MatchDegree': 99, 'MatchedOriginalText': 'SUN'},
+                {'Rating': 1, 'TranslatedText': u'Вос', 'Count': 1, 'MatchDegree': 99, 'MatchedOriginalText': 'Sun'},
+                {'Rating': 1, 'TranslatedText': u'Воскресенье', 'Count': 1, 'MatchDegree': 99, 'MatchedOriginalText': 'Sun'},
+                {'Rating': 1, 'TranslatedText': u'Вс', 'Count': 1, 'MatchDegree': 99, 'MatchedOriginalText': 'Sun'},
+                {'Rating': 0, 'TranslatedText': u'СОЛНЦЕ!!', 'Count': 0, 'MatchDegree': 63, 'MatchedOriginalText': 'SUN!!'}
+            ]}
+
+        )
+
     def test_translate_array(self):
         client = Translator(client_id, client_secret, debug=True)
         self.assertEqual(client.translate("hello", "pt"), u'Ol\xe1')

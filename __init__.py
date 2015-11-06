@@ -175,6 +175,38 @@ class Translator(object):
             params['from'] = from_lang
         return self.call("Translate", params)
 
+    def get_translations(
+            self, text, to_lang, from_lang, max_translations=10,
+            content_type='text/plain', category='general'):
+        """Retrieves an array of translations for a given language pair
+            from the store and the MT engine. GetTranslations differs
+            from Translate as it returns all available translationsv
+
+        :param text: A string representing the text to translate.
+        :param to_lang: A string representing the language code to
+            translate the text into.
+        :param from_lang: A string representing the language code of the
+            translation text. If left None the response will include the
+            result of language auto-detection.
+        :max_translations: An int representing the maximum number of
+            translations to return. (Default: 10)
+        :param content_type: The format of the text being translated.
+            The supported formats are "text/plain" and "text/html". Any HTML
+            needs to be well-formed.
+        :param category: The category of the text to translate. The only
+            supported category is "general".
+        """
+        params = {
+            'text': text.encode('utf8'),
+            'to': to_lang,
+            'contentType': content_type,
+            'category': category,
+            'maxTranslations': max_translations,
+        }
+        if from_lang is not None:
+            params['from'] = from_lang
+        return self.call("GetTranslations", params)
+
     def translate_array(self, texts, to_lang, from_lang=None, **options):
         """Translates an array of text strings from one language to another.
 
