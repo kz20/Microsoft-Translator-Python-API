@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 """
+    The fork of https://github.com/openlabs/Microsoft-Translator-Python-API.
+    ====== Original description ========
+
     Microsoft translator API
 
     The Microsoft Translator services can be used in web or client
@@ -12,7 +15,7 @@
 
     An example::
 
-        >>> from microsofttranslator import Translator
+        >>> from mstranslator import Translator
         >>> translator = Translator('<Your API Key>')
         >>> print translator.translate("Hello", "pt")
         "Olá"
@@ -31,23 +34,23 @@ from setuptools import setup
 
 
 setup(
-    name="microsofttranslator",
-    version="0.7",
+    name="mstranslator",
+    version="0.1",
     packages=[
-        'microsofttranslator',
+        'mstranslator',
     ],
     package_dir={
-        'microsofttranslator': '.'
+        'mstranslator': '.'
     },
-    author="Openlabs Technologies & Consulting (P) Limited",
-    author_email="info@openlabs.co.in",
-    description="Microsoft Translator V2 - Python API",
+    author="kz20",
+    author_email="brightknopper@gmail.com",
+    description="Microsoft Translator - Python API. Fork of https://github.com/kz20/Microsoft-Translator-Python-API.git",
     long_description=codecs.open(
         'README.rst', encoding='UTF-8'
     ).read(),
     license="BSD",
     keywords="translation microsoft",
-    url="http://openlabs.co.in/",
+    url="",
     include_package_data=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -60,7 +63,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 2",
     ],
-    test_suite="microsofttranslator.test.test_all",
+    test_suite="mstranslator.test.test_all",
     install_requires=[
         'requests >= 1.2.3',
         'six',
